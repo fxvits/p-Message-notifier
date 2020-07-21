@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import  { MessageModule, MessagesModule } from 'primeng'
+import {ToastModule} from 'primeng/toast';
+import {ContextMenuModule} from 'primeng/contextmenu';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
@@ -10,8 +11,8 @@ import { AppService } from './app.service';
   imports:      [
     BrowserModule,
     FormsModule,
-    MessageModule,
-    MessagesModule
+    ToastModule,
+    
   ],
   declarations: [
     AppComponent
