@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 
 import { AppComponent }   from './app.component';
-import { NodeService } from './nodeservice';
+import { AppService } from './app.service';
 
 import {TreeTableModule} from 'primeng/treetable';
 import {ButtonModule} from 'primeng/button';
@@ -36,7 +36,7 @@ import {ContextMenuModule} from 'primeng/contextmenu';
   ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [NodeService]
+  providers: [AppService]
 })
 
 export class AppModule { }
