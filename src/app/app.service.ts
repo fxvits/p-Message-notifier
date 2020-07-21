@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { timer } from 'rxjs';
+import { timer, Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { IMyMessage } from './msg.model';
 
 @Injectable()
 export class AppService {
 
-  public currentData;
-
+  private _currentData: Observable<IMyMessage>;
   private _dataSource: BehaviorSubject<IMyMessage>;  
   private _timerSource = timer(1000, 2000);
   private _timerSubscription;
@@ -28,13 +27,15 @@ export class AppService {
 
   constructor() { 
      this._dataSource = new BehaviorSubject<IMyMessage>(null); 
-     this.currentData = this._dataSource.asObservable();
+     this._currentData = this._dataSource.asObservable();
   }
 
-  public startNotifier(): void {
+  public startNotifier(): Observable<IMyMessage> {
     if (!this._timerSubscription) {
+      this._currentData = this._dataSource.asObservable();
       this._timerSubscription = this._timerSource.subscribe(x => this.triggerNotif(x));
     }
+    return this._currentData;
    }
 
   public stopNotifier(): void {
