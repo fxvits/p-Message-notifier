@@ -24,7 +24,7 @@ export class AppService {
     <IMyMessage>{data: 'Alert Message 7', expireOn: 1},
     <IMyMessage>{data: 'Alert Message 8', expireOn: 1},
     <IMyMessage>{data: 'Alert Message 9', expireOn: 1},
-  }];
+  ];
 
   constructor() { 
      this.currentData = this._dataSource.asObservable();
