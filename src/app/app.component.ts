@@ -16,4 +16,13 @@ export class AppComponent  {
 
   public stop(): void {
     this._appService.stopNotifier();
+  }
+
+  public next(): void {
+    this._appService.nextNotification();
+  }
+
+  public previous(): void {
+    this._appService.prevNotification();
+  }
 }
