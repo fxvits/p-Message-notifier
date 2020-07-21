@@ -8,12 +8,12 @@ export class AppService {
 
   public currentData;
 
-  private _dataSource: BehaviorSubject<string>;  
+  private _dataSource: BehaviorSubject<IMyMessage>;  
   private _timerSource = timer(1000, 2000);
   private _timerSubscription;
   private _currentIndex: number = -1;
 
-  private _msgList: MyMessage[] = new MyMessage[
+  private _msgList: IMyMessage[] = [
     <IMyMessage>{data: 'Alert Message 0', expireOn: 1},
     <IMyMessage>{data: 'Alert Message 1', expireOn: 1},
     <IMyMessage>{data: 'Alert Message 2', expireOn: 1},
@@ -28,7 +28,7 @@ export class AppService {
 
   constructor() { 
      this.currentData = this._dataSource.asObservable();
-     this._dataSource = new BehaviorSubject<string>(""); 
+     this._dataSource = new BehaviorSubject<IMyMessage>(null); 
   }
 
   public startAlerter(): void {
