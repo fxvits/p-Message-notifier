@@ -11,22 +11,3 @@
       <button pButton type="button" icon="pi pi-chevron-right" label="Collapse All" (click)="collapseAll()"></button>
     </div>
   </div>
-<p-treeTable [value]="files1">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                {{rowData.name}}
-            </td>
-            <td>{{rowData.size}}</td>
-            <td>{{rowData.type}}</td>
-        </tr>
-    </ng-template>
-</p-treeTable>

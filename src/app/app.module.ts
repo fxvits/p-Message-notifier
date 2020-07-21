@@ -1,14 +1,14 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 
 import { AppComponent }   from './app.component';
 import { AppService } from './app.service';
 
-import {TreeTableModule} from 'primeng/treetable';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {MultiSelectModule} from 'primeng/multiselect';
@@ -20,14 +20,9 @@ import {ContextMenuModule} from 'primeng/contextmenu';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    TreeTableModule,
-    ToastModule,
-    DialogModule,
+    MessagesModule,
+    MessageModule,
     ButtonModule,
-    MultiSelectModule,
-    InputTextModule,
-    ContextMenuModule,
-    HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
       {path:'',component: AppComponent}
