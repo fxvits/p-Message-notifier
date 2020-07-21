@@ -1,13 +1,27 @@
 <p>
-  Start editing to see some magic happen :)
+	Start editing to see some magic happen :)
 </p>
+<p-messages severity="info">
+    <ng-template pTemplate>
+        <img src="assets/showcase/images/demo/organization/walter.jpg" width="32" />
+        <span class="custom-message">I am the one who knocks.</span>
+        <div class="p-grid">
+          <div class="p-col-fixed">
+            <button pButton type="button" label="Next" (click)="Next()"></button>
+          </div>
+          <div class="p-col-fixed">
+            <button pButton type="button" label="Previous" (click)="Previous()"></button>
+          </div>
+        </div>
+    </ng-template>
+</p-messages>
 
 <h3 class="first">Basic</h3>
 <div class="p-grid">
-    <div class="p-col-fixed">
-      <button pButton type="button" icon="pi pi-chevron-down" label="Expand All" (click)="expandAll()"></button>
-    </div>
-    <div class="p-col-fixed">
-      <button pButton type="button" icon="pi pi-chevron-right" label="Collapse All" (click)="collapseAll()"></button>
-    </div>
-  </div>
+	<div class="p-col-fixed">
+		<button pButton type="button" label="Start" (click)="start()"></button>
+	</div>
+	<div class="p-col-fixed">
+		<button pButton type="button" label="Stop" (click)="stop()"></button>
+	</div>
+</div>

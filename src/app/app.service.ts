@@ -27,23 +27,40 @@ export class AppService {
   ];
 
   constructor() { 
-     this.currentData = this._dataSource.asObservable();
      this._dataSource = new BehaviorSubject<IMyMessage>(null); 
+     this.currentData = this._dataSource.asObservable();
   }
 
-  public startAlerter(): void {
+  public startNotifier(): void {
     if (!this._timerSubscription) {
-      this._timerSubscription = this._timerSource.subscribe(x => this.triggerAlert(x));
+      this._timerSubscription = this._timerSource.subscribe(x => this.triggerNotif(x));
     }
    }
 
-  public stopAlerter(): void {
+  public stopNotifier(): void {
     if (this._timerSubscription) {
       this._timerSubscription.unsubscribe();
     }
   }
 
-  public triggerAlert(time: number): void {
+  public nextNotification(): void {
+    this._currentIndex += 1;
+    if (this._currentIndex === this._msgList.length) {
+      this._currentIndex = 0;
+    }
+    this._dataSource.next(this._msgList[this._currentIndex]);
+  }
+
+public prevNotification(): void {
+    this._currentIndex -= 1;
+    if (this._currentIndex <= 0) {
+      this._currentIndex = this._msgList.length-1;
+    }
+    this._dataSource.next(this._msgList[this._currentIndex]);
+  }
+
+
+  public triggerNotif(time: number): void {
     this._currentIndex += 1;
     if (this._currentIndex === this._msgList.length) {
       this._currentIndex = 0;
