@@ -2,7 +2,7 @@ import { Component, VERSION, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Message, MessageService } from 'primeng/api';
 import { AppService } from './app.service';
-import { IMyMessage } from './msg.model';
+import { INotification } from './msg.model';
 
 @Component({
   selector: 'app-root',
@@ -12,64 +12,72 @@ import { IMyMessage } from './msg.model';
 export class AppComponent
   implements OnDestroy  {
  
-  public  msgs: Message[] = [];
+  public isNewDisplayed: boolean = false;
+  public notificationCount: number;
   private _notifierSubscription: Subscription;
-
+  
   constructor(
     private _messageService: MessageService,
     private _appService: AppService) {}
 
-  public start(): void {
+  public onStartButtonClicked(): void {
     if (!this._notifierSubscription) {
 
       this._notifierSubscription = this._appService
         .startNotifier()
-        .subscribe((msg: IMyMessage) =>{
-          this.displayNotification(msg);
+        .subscribe((notif: INotification) =>{
+          this.displayNotification(notif);
       });
     }
   }
 
-  public stop(): void {
+  public onStopButtonClicked(): void {
+     this.stop();
+  }
+
+  public onNextButtonClicked(): void {
+    this._appService.nextNotification();
+  }
+
+  public onPreviousButtonClicked(): void {
+    this._appService.prevNotification();
+  }
+
+  public onAddButtonClicked(): void {
+    this._appService.addNotification();
+  }
+  public displayNotification(notif: INotification): void {
+
+    this.isNewDisplayed = false;
+    this._messageService.clear();
+
+    if (notif && notif.msg) {
+
+      this.isNewDisplayed = true;
+      this.notificationCount = notif.count;
+      this._messageService.add
+          (<Message>{
+              closable: true,             
+              severity: 'info',
+              summary:'Service Message',
+              detail: notif.msg.data
+          });              
+    }
+  }
+
+  public onManuallyClosed(): void {
+    this._appService.nextNotification();
+  } 
+   
+  public ngOnDestroy(): void {
+    this.stop();
+  } 
+
+  private stop(): void {
     if (this._notifierSubscription) {
       this._appService.stopNotifier();
       this._notifierSubscription.unsubscribe();
       this._notifierSubscription = null;
-    }  
-  }
-
-  public next(): void {
-    this._appService.nextNotification();
-  }
-
-  public previous(): void {
-    this._appService.prevNotification();
-  }
-
-  public displayNotification(msg: IMyMessage): void {
-    if (msg) {
-      console.log(msg.data);
-      this._messageService.add
-                    (<Message>{
-                        key: msg.key,
-                        sticky: (msg.expireOn > 0 ? false : true),
-                        life: (msg.expireOn > 0 ? msg.expireOn : null),
-                        closable: true,
-                        severity: 'info',
-                        detail: msg.data
-                    });
-
-      // TODO Remove once Life property will be available for p-Messages
-      if (msg.expireOn > 0) {
-          setTimeout(() => {
-              this._messageService.clear(msg.key);
-          }, (msg.expireOn > 0 ? msg.expireOn : 5000)); // life = 5000ms as default
-      }                    
-    }
-  }
-    
-  public ngOnDestroy(): void {
-    this.stop();
-  } 
-  
+    } 
+  }  
 }

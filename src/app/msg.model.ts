@@ -1,5 +1,10 @@
 export interface IMyMessage {
   key: string;
   data: string;
-  expireOn: number;
+  expireOn: Date;
+}
+
+export interface INotification {
+  msg: IMyMessage;
+  count: number;
 }
